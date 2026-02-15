@@ -13,7 +13,7 @@ html, body {
     height: 100vh;
     overflow: hidden;
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, lch(60.42% 1.17 19.15), oklch(92.727% 0.00322 15.415), lch(53.84% 1.2 19.2));
+    background: linear-gradient(135deg, lch(60.42% 1.17 19.15), rgb(218, 239, 240), oklab(63.88% -0.03022 -0.01668));
     background-size: 200% 200%;
     animation: gradient-move 20s ease infinite;
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -46,12 +46,13 @@ html, body {
 }
 
 #view {
+    
     height: 90vh;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, lch(87.68% 6.21 19.76), oklch(100% 0.00011 271.152), lch(76.15% 2.99 19.47));
+    background: linear-gradient(135deg, lch(87.68% 6.21 19.76), oklch(87.19% 0.10613 175.946), lch(76.15% 2.99 19.47));
     background-size: 200% 200%;
     background: no-repeat;
     animation: gradient-move 14s ease infinite;
@@ -59,14 +60,28 @@ html, body {
 }
 
 #btn-container {
-    position: relative;
-    width: 90%;
-    height: 95%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) translateZ(0);  /* perfect centering */
+    width:  min(85vw, 480px);
+    height: min(75vh, 620px);
+    max-width: 520px;
+    max-height: 620px;
     overflow: hidden;
-    transform: translateZ(0);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+#btn-container:hover,
+#btn-container:focus-visible {
+    transform: translate(-50%, -50%) translateZ(0) translateY(-4px) scale(1.03);
+    box-shadow: 0 12px 32px rgba(236, 72, 153, 0.55);
+    opacity: 1;
+    overflow: visible;
+}
+
+#btn-container:active {
+    transform: translate(-50%, -50%) translateZ(0) translateY(-1px) scale(0.98);
+    box-shadow: 0 4px 16px rgba(168, 85, 247, 0.45);
 }
 
 .grid-btn {
@@ -74,6 +89,7 @@ html, body {
     inset: 0;
     width: 100%;
     height: 100%;
+    max-width: 480px;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

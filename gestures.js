@@ -1,38 +1,83 @@
 class Gestures {
     constructor() {
-        this.threshold = 50;
-        this.anim = false;
-        this.container = document.getElementById('btn-container');
-        this.init();
-    }
+    this.threshold = 50;
+    this.anim = false;
+    this.isDragging = false;          // renamed for clarity
+    this.sx = 0;
+    this.sy = 0;
+    this.container = document.getElementById('btn-container');
+    this.init();
+}
 
-    init() {
-        const view = document.getElementById('view');
-        view.addEventListener('touchstart', e => {
-            if (!this.anim && e.touches?.[0]) {
-                this.sx = e.touches[0].clientX;
-                this.sy = e.touches[0].clientY;
-            }
-        }, { passive: true });
+init() {
+    const view = document.getElementById('view');
 
-        view.addEventListener('touchend', e => {
-            if (this.anim || !e.changedTouches?.length) return;
-            const dx = e.changedTouches[0].clientX - this.sx;
-            const dy = e.changedTouches[0].clientY - this.sy;
-            let dir;
+    // Touch – unchanged
+    view.addEventListener('touchstart', e => {
+        if (!this.anim && e.touches?.[0]) {
+            this.sx = e.touches[0].clientX;
+            this.sy = e.touches[0].clientY;
+            this.isDragging = true;
+        }
+    }, { passive: true });
 
-            if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > this.threshold) {
-                dir = dx > 0 ? 'left' : 'right';
-            } else if (Math.abs(dy) > this.threshold) {
-                dir = dy > 0 ? 'down' : 'up';
-            }
+    view.addEventListener('touchend', e => {
+        if (this.anim || !this.isDragging) return;
+        this.isDragging = false;
 
-            if (dir) this.swipe(dir);
-        }, { passive: true });
+        const touch = e.changedTouches?.[0];
+        if (!touch) return;
 
-        
-        this.render();
-    }
+        const dx = touch.clientX - this.sx;
+        const dy = touch.clientY - this.sy;
+        let dir;
+
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > this.threshold)
+            dir = dx > 0 ? 'left' : 'right';
+        else if (Math.abs(dy) > this.threshold)
+            dir = dy > 0 ? 'down' : 'up';
+
+        if (dir) this.swipe(dir);
+    }, { passive: true });
+
+    // ── Mouse – more robust version ──
+    view.addEventListener('mousedown', e => {
+        if (this.anim) return;
+        e.preventDefault();           // prevents text selection / other defaults
+        this.sx = e.clientX;
+        this.sy = e.clientY;
+        this.isDragging = true;
+    });
+
+    // Track mouseup anywhere on document (not just inside view)
+    document.addEventListener('mouseup', e => {
+        if (!this.isDragging || this.anim) return;
+        this.isDragging = false;
+
+        const dx = e.clientX - this.sx;
+        const dy = e.clientY - this.sy;
+        let dir;
+
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > this.threshold)
+            dir = dx > 0 ? 'left' : 'right';
+        else if (Math.abs(dy) > this.threshold)
+            dir = dy > 0 ? 'down' : 'up';
+
+        if (dir) this.swipe(dir);
+    });
+
+    // Also cancel if mouse leaves window or view
+    view.addEventListener('mouseleave', () => {
+        this.isDragging = false;
+    });
+
+    window.addEventListener('blur', () => {
+        this.isDragging = false;      // tab switch / alt-tab
+    });
+
+    
+    this.render();
+}
 
     swipe(dir) {
         const nextIdx = grid.next(dir);
