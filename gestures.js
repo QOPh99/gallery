@@ -3,7 +3,7 @@ class GestureManager {
     constructor() {
         this.startX = 0;
         this.startY = 0;
-        this.threshold = 50;
+        this.threshold = 60;           // slightly higher → feels more intentional
         this.container = document.getElementById('button-container');
         this.currentBtn = null;
         this.animating = false;
@@ -18,7 +18,7 @@ class GestureManager {
         view.addEventListener('touchend', (e) => this.handleEnd(e), { passive: true });
 
         document.getElementById('out-btn').onclick = () => {
-            alert('Out!'); // Placeholder - could be window.close() or navigation
+            alert('Out!'); // or history.back(), window.close(), etc.
         };
 
         window.addEventListener('beforeunload', () => {
@@ -34,7 +34,7 @@ class GestureManager {
     }
 
     handleEnd(e) {
-        if (this.animating || !e.changedTouches.length) return;
+        if (this.animating || !e.changedTouches?.length) return;
         const touch = e.changedTouches[0];
         const dx = touch.clientX - this.startX;
         const dy = touch.clientY - this.startY;
@@ -54,7 +54,7 @@ class GestureManager {
     handleSwipe(direction) {
         const nextIndex = grid.getNextIndex(direction);
         if (nextIndex === null) {
-            // Invalid move, show arrows
+            // Blocked direction → show hint arrows
             const possible = grid.getPossibleDirections();
             grid.showArrows(possible);
             return;
@@ -65,69 +65,76 @@ class GestureManager {
 
     animateTransition(direction, nextIndex) {
         this.animating = true;
-        const currentBtn = this.currentBtn.cloneNode(true); // Clone for outgoing
-        const incomingBtn = grid.createButton(nextIndex);
 
-        // Position incoming based on direction
-        let incomingTransform = '';
-        let outgoingTransform = '';
-        switch (direction) {
-            case 'left': // Swipe left: out left, in from right
-                outgoingTransform = 'translateX(-100%)';
-                incomingTransform = 'translateX(100%)';
-                break;
-            case 'right': // Swipe right: out right, in from left
-                outgoingTransform = 'translateX(100%)';
-                incomingTransform = 'translateX(-100%)';
-                break;
-            case 'up': // Swipe up: out up, in from bottom
-                outgoingTransform = 'translateY(-100%)';
-                incomingTransform = 'translateY(100%)';
-                break;
-            case 'down': // Swipe down: out down, in from top
-                outgoingTransform = 'translateY(100%)';
-                incomingTransform = 'translateY(-100%)';
-                break;
-        }
+        // Create clone of current for outgoing animation
+        const outgoing = this.currentBtn.cloneNode(true);
+        outgoing.style.position = 'absolute';
+        outgoing.style.inset = '0';
+        outgoing.style.margin = '0';
+        outgoing.style.width = '100%';
+        outgoing.style.height = '100%';
+        outgoing.style.transition = 'transform 0.24s ease-out';
 
-        currentBtn.style.transform = outgoingTransform;
-        incomingBtn.style.transform = incomingTransform;
-        incomingBtn.style.position = 'absolute';
-        incomingBtn.style.top = '0';
-        incomingBtn.style.left = '0';
-        incomingBtn.style.width = '100%';
-        incomingBtn.style.height = '100%';
+        // Create incoming button
+        const incoming = grid.createButton(nextIndex);
+        incoming.style.position = 'absolute';
+        incoming.style.inset = '0';
+        incoming.style.margin = '0';
+        incoming.style.width = '100%';
+        incoming.style.height = '100%';
+        incoming.style.transition = 'transform 0.24s ease-out';
+        incoming.style.transform = this.getEnterTransform(direction);
 
-        this.container.appendChild(incomingBtn);
-        this.container.appendChild(currentBtn); // Append clone after to layer correctly? But since absolute, order may not matter
+        // Add both to container
+        this.container.appendChild(outgoing);
+        this.container.appendChild(incoming);
 
-        // Trigger transition
+        // Hide original current (we use clone for animation)
+        this.currentBtn.style.display = 'none';
+
+        // Trigger animation
         requestAnimationFrame(() => {
-            currentBtn.style.transform = outgoingTransform;
-            incomingBtn.style.transform = 'translate(0, 0)';
+            outgoing.style.transform = this.getExitTransform(direction);
+            incoming.style.transform = 'translate(0, 0)';
         });
 
-        // After transition
+        // Clean up after animation
         setTimeout(() => {
-            this.container.innerHTML = '';
-            this.currentBtn = incomingBtn;
-            this.container.appendChild(incomingBtn);
+            this.container.innerHTML = '';           // remove both animated clones
+            this.currentBtn = incoming;              // promote incoming to current
+            this.currentBtn.style.display = 'flex';  // in case we hid something
+            this.container.appendChild(this.currentBtn);
             grid.moveTo(nextIndex);
-            this.renderCurrentButton(); // Not needed, since we set it
             this.animating = false;
-        }, 300);
+        }, 280);
+    }
+
+    getExitTransform(dir) {
+        switch (dir) {
+            case 'left':   return 'translateX(-120%)';
+            case 'right':  return 'translateX(120%)';
+            case 'up':     return 'translateY(-120%)';
+            case 'down':   return 'translateY(120%)';
+        }
+    }
+
+    getEnterTransform(dir) {
+        switch (dir) {
+            case 'left':   return 'translateX(120%)';   // comes from right
+            case 'right':  return 'translateX(-120%)';  // comes from left
+            case 'up':     return 'translateY(120%)';   // comes from bottom
+            case 'down':   return 'translateY(-120%)';  // comes from top
+        }
     }
 
     renderCurrentButton() {
-        if (this.currentBtn) {
-            this.container.removeChild(this.currentBtn);
-        }
+        this.container.innerHTML = '';
         this.currentBtn = grid.createButton(grid.currentIndex);
         this.container.appendChild(this.currentBtn);
     }
 }
 
-// Initialize on load
+// Initialize
 document.addEventListener('DOMContentLoaded', () => {
     new GestureManager();
 });

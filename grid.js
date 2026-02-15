@@ -17,28 +17,22 @@ class GridManager {
     getNextIndex(direction) {
         const row = this.getRow(this.currentIndex);
         const col = this.getCol(this.currentIndex);
-        let newIndex;
+        let newIndex = this.currentIndex;
 
         switch (direction) {
             case 'left':
-                if (col > 0) {
-                    newIndex = this.currentIndex - 1;
-                } else {
-                    return null; // Invalid
-                }
+                if (col > 0) newIndex--;
+                else return null;
                 break;
             case 'right':
-                newIndex = this.currentIndex + 1;
+                newIndex++;           // always possible → infinite right
                 break;
             case 'up':
-                newIndex = this.currentIndex + this.cols;
+                newIndex += this.cols; // always possible → infinite up
                 break;
             case 'down':
-                if (row > 0) {
-                    newIndex = this.currentIndex - this.cols;
-                } else {
-                    return null; // Invalid
-                }
+                if (row > 0) newIndex -= this.cols;
+                else return null;
                 break;
             default:
                 return null;
@@ -58,7 +52,7 @@ class GridManager {
         const btn = document.createElement('div');
         btn.className = `grid-btn btn-${index}`;
         btn.textContent = index;
-        btn.onclick = () => console.log(`Clicked button ${index}`); // Placeholder for button action
+        btn.onclick = () => console.log(`Clicked button ${index}`);
         return btn;
     }
 
@@ -67,40 +61,30 @@ class GridManager {
         arrows.classList.remove('show');
         clearTimeout(this.arrowsTimeout);
 
-        // Hide all arrows first
-        document.querySelectorAll('.arrow').forEach(arrow => {
-            arrow.style.display = 'none';
-        });
+        document.querySelectorAll('.arrow').forEach(a => a.style.display = 'none');
 
-        // Show possible
         possibleDirections.forEach(dir => {
-            const arrow = document.querySelector(`.arrow.${dir}`);
-            if (arrow) {
-                arrow.style.display = 'flex';
-            }
+            const el = document.querySelector(`.arrow.${dir}`);
+            if (el) el.style.display = 'flex';
         });
 
         arrows.classList.add('show');
-        this.arrowsTimeout = setTimeout(() => {
-            arrows.classList.remove('show');
-        }, 1000);
+        this.arrowsTimeout = setTimeout(() => arrows.classList.remove('show'), 1000);
     }
 
     getPossibleDirections() {
         const row = this.getRow(this.currentIndex);
         const col = this.getCol(this.currentIndex);
-        const dirs = [];
+        const dirs = ['right', 'up']; // always possible
 
         if (col > 0) dirs.push('left');
-        dirs.push('right'); // Always possible
         if (row > 0) dirs.push('down');
-        dirs.push('up'); // Always possible
 
         return dirs;
     }
 
     loadCurrentIndex() {
-        return parseInt(localStorage.getItem('currentButtonIndex')) || 1;
+        return parseInt(localStorage.getItem('currentButtonIndex'), 10) || 1;
     }
 
     saveCurrentIndex() {
@@ -108,5 +92,4 @@ class GridManager {
     }
 }
 
-// Global instance
 const grid = new GridManager();
