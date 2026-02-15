@@ -30,7 +30,7 @@ class Gestures {
             if (dir) this.swipe(dir);
         }, { passive: true });
 
-        document.getElementById('out-btn').onclick = () => alert('Out!');
+        
         this.render();
     }
 
