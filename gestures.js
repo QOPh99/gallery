@@ -16,16 +16,78 @@ class Gestures {
         if (!nextIdx) return grid.showArrows(grid.possible());
         this.animate(dir, nextIdx);
     }
-    animate(dir, nextIdx) {
+        animate(dir, nextIdx) {
         this.anim = true;
-        const out = this.container.firstElementChild.cloneNode(true), inBtn = grid.create(nextIdx);
-        ['position', 'inset', 'margin', 'width', 'height', 'display', 'align-items', 'justify-content'].forEach(prop => { out.style[prop] = 'absolute,0,0,100%,100%,flex,center,center'.split(',')[prop === 'position' ? 0 : prop === 'inset' ? 1 : prop === 'margin' ? 2 : prop === 'width' ? 3 : prop === 'height' ? 4 : prop === 'display' ? 5 : prop === 'align-items' ? 6 : 7]; inBtn.style[prop] = out.style[prop]; });
-        out.style.transition = 'transform 0.3s ease-out'; inBtn.style.transform = this.enter(dir); this.container.firstElementChild.style.display = 'none'; this.container.append(out, inBtn);
-        requestAnimationFrame(() => { out.style.transform = this.exit(dir); inBtn.style.transform = 'translate(0,0)'; });
-        setTimeout(() => { this.container.innerHTML = ''; this.container.append(inBtn); grid.move(nextIdx); this.anim = false; }, 300);
+        const out = this.container.firstElementChild.cloneNode(true);
+        const inBtn = grid.create(nextIdx);
+
+        // Force explicit starting styles on BOTH elements
+        const baseStyles = {
+            position: 'absolute',
+            inset: '0',
+            margin: '0',
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'transform 0.3s ease-out'
+        };
+
+        Object.assign(out.style, baseStyles);
+        Object.assign(inBtn.style, baseStyles);
+
+        // Set explicit starting transform for incoming (this is the key fix)
+        inBtn.style.transform = this.enter(dir);
+
+        // Hide original, add animated clones
+        this.container.firstElementChild.style.display = 'none';
+        this.container.append(out, inBtn);
+
+        // Force reflow + start animation
+        void inBtn.offsetWidth;  // ← important: forces browser to apply initial transform before changing it
+
+        requestAnimationFrame(() => {
+            out.style.transform  = this.exit(dir);
+            inBtn.style.transform = 'translate(0,0)';
+        });
+
+        setTimeout(() => {
+            this.container.innerHTML = '';
+            this.container.append(inBtn);
+            grid.move(nextIdx);
+            this.anim = false;
+        }, 320);
     }
-    exit(dir) { return {left: 'translateX(-100%)', right: 'translateX(100%)', up: 'translateY(-100%)', down: 'translateY(100%)'}[dir]; }
-    enter(dir) { return {left: 'translateX(100%)', right: 'translateX(-100%)', up: 'translateY(100%)', down: 'translateY(-100%)'}[dir]; }
-    render() { this.container.innerHTML = ''; const btn = grid.create(grid.current); ['position', 'inset', 'margin', 'width', 'height', 'display', 'align-items', 'justify-content'].forEach(prop => btn.style[prop] = 'absolute,0,0,100%,100%,flex,center,center'.split(',')[prop === 'position' ? 0 : prop === 'inset' ? 1 : prop === 'margin' ? 2 : prop === 'width' ? 3 : prop === 'height' ? 4 : prop === 'display' ? 5 : prop === 'align-items' ? 6 : 7]); this.container.append(btn); }
+        exit(dir) {
+        return {
+            left:  'translateX(100%)',   // swipe left → current flies LEFT out
+            right: 'translateX(-100%)',    // swipe right → current flies RIGHT out
+            up:    'translateY(-100%)',
+            down:  'translateY(100%)'
+        }[dir];
+    }
+
+    enter(dir) {
+        return {
+            left:  'translateX(-100%)',    // when swiping left → new comes FROM RIGHT
+            right: 'translateX(100%)',   // when swiping right → new comes FROM LEFT
+            up:    'translateY(100%)',    // swipe up → new from bottom
+            down:  'translateY(-100%)'    // swipe down → new from top
+        }[dir];
+    }
+        render() {
+        this.container.innerHTML = '';
+        const btn = grid.create(grid.current);
+        
+        // Force correct initial styles + pretend it's "already entered from correct side"
+        ['position','inset','margin','width','height','display','align-items','justify-content','transform']
+            .forEach((prop, i) => {
+                const vals = ['absolute','0','0','100%','100%','flex','center','center','translate(0,0)'];
+                btn.style[prop] = vals[i];
+            });
+
+        this.container.append(btn);
+    }
 }
 document.addEventListener('DOMContentLoaded', () => new Gestures());

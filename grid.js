@@ -23,13 +23,17 @@ const grid = {
         btn.onclick = () => console.log(`Clicked ${idx}`);
         return btn;
     },
-    possible() {
+        possible() {
         const row = this.getRow(grid.current), col = this.getCol(grid.current);
         const dirs = [];
-        if (col > 0) dirs.push('left');
-        if (col < 3) dirs.push('right');
+        
+        // Flip horizontal hints to match "content follows finger" feel
+        if (col > 0) dirs.push('right');   // can go left in grid → show RIGHT arrow (pull from right)
+        if (col < 3) dirs.push('left');    // can go right in grid → show LEFT arrow (pull from left)
+        
         dirs.push('up');
         if (grid.current > this.cols) dirs.push('down');
+        
         return dirs;
     },
     showArrows(dirs) {
