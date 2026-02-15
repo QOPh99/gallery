@@ -1,28 +1,53 @@
-// gestures.js - Minimal gesture & animation
 class Gestures {
     constructor() {
-        this.threshold = 50, this.anim = false, this.container = document.getElementById('btn-container');
+        this.threshold = 50;
+        this.anim = false;
+        this.container = document.getElementById('btn-container');
         this.init();
     }
+
     init() {
         const view = document.getElementById('view');
-        view.addEventListener('touchstart', e => { if (!this.anim) [this.sx, this.sy] = [e.touches[0].clientX, e.touches[0].clientY]; }, {passive: true});
-        view.addEventListener('touchend', e => { if (this.anim || !e.changedTouches.length) return; const [dx, dy] = [e.changedTouches[0].clientX - this.sx, e.changedTouches[0].clientY - this.sy]; let dir; if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > this.threshold) dir = dx > 0 ? 'left' : 'right'; else if (Math.abs(dy) > this.threshold) dir = dy > 0 ? 'down' : 'up'; if (dir) this.swipe(dir); }, {passive: true});
+        view.addEventListener('touchstart', e => {
+            if (!this.anim && e.touches?.[0]) {
+                this.sx = e.touches[0].clientX;
+                this.sy = e.touches[0].clientY;
+            }
+        }, { passive: true });
+
+        view.addEventListener('touchend', e => {
+            if (this.anim || !e.changedTouches?.length) return;
+            const dx = e.changedTouches[0].clientX - this.sx;
+            const dy = e.changedTouches[0].clientY - this.sy;
+            let dir;
+
+            if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > this.threshold) {
+                dir = dx > 0 ? 'left' : 'right';
+            } else if (Math.abs(dy) > this.threshold) {
+                dir = dy > 0 ? 'down' : 'up';
+            }
+
+            if (dir) this.swipe(dir);
+        }, { passive: true });
+
         document.getElementById('out-btn').onclick = () => alert('Out!');
         this.render();
     }
+
     swipe(dir) {
         const nextIdx = grid.next(dir);
-        if (!nextIdx) return grid.showArrows(grid.possible());
+        if (!nextIdx) return;
         this.animate(dir, nextIdx);
     }
-        animate(dir, nextIdx) {
+
+    animate(dir, nextIdx) {
         this.anim = true;
-        const out = this.container.firstElementChild.cloneNode(true);
+        const out = this.container.firstElementChild?.cloneNode(true);
+        if (!out) return;
+
         const inBtn = grid.create(nextIdx);
 
-        // Force explicit starting styles on BOTH elements
-        const baseStyles = {
+        const base = {
             position: 'absolute',
             inset: '0',
             margin: '0',
@@ -34,35 +59,37 @@ class Gestures {
             transition: 'transform 0.3s ease-out'
         };
 
-        Object.assign(out.style, baseStyles);
-        Object.assign(inBtn.style, baseStyles);
+        Object.assign(out.style, base);
+        Object.assign(inBtn.style, base);
 
-        // Set explicit starting transform for incoming (this is the key fix)
         inBtn.style.transform = this.enter(dir);
 
-        // Hide original, add animated clones
         this.container.firstElementChild.style.display = 'none';
         this.container.append(out, inBtn);
 
-        // Force reflow + start animation
-        void inBtn.offsetWidth;  // ← important: forces browser to apply initial transform before changing it
+        void inBtn.offsetWidth;
 
         requestAnimationFrame(() => {
-            out.style.transform  = this.exit(dir);
+            out.style.transform = this.exit(dir);
             inBtn.style.transform = 'translate(0,0)';
         });
 
         setTimeout(() => {
             this.container.innerHTML = '';
-            this.container.append(inBtn);
+            while (this.container.firstChild) {
+                this.container.removeChild(this.container.firstChild);
+            }
+
+            this.container.appendChild(inBtn);
             grid.move(nextIdx);
             this.anim = false;
-        }, 320);
+        }, 340);
     }
-        exit(dir) {
+
+    exit(dir) {
         return {
-            left:  'translateX(100%)',   // swipe left → current flies LEFT out
-            right: 'translateX(-100%)',    // swipe right → current flies RIGHT out
+            left:  'translateX(100%)',
+            right: 'translateX(-100%)',
             up:    'translateY(-100%)',
             down:  'translateY(100%)'
         }[dir];
@@ -70,24 +97,29 @@ class Gestures {
 
     enter(dir) {
         return {
-            left:  'translateX(-100%)',    // when swiping left → new comes FROM RIGHT
-            right: 'translateX(100%)',   // when swiping right → new comes FROM LEFT
-            up:    'translateY(100%)',    // swipe up → new from bottom
-            down:  'translateY(-100%)'    // swipe down → new from top
+            left:  'translateX(-100%)',
+            right: 'translateX(100%)',
+            up:    'translateY(100%)',
+            down:  'translateY(-100%)'
         }[dir];
     }
-        render() {
+
+    render() {
         this.container.innerHTML = '';
+        while (this.container.firstChild) {
+            this.container.removeChild(this.container.firstChild);
+        }
+
         const btn = grid.create(grid.current);
-        
-        // Force correct initial styles + pretend it's "already entered from correct side"
+
         ['position','inset','margin','width','height','display','align-items','justify-content','transform']
-            .forEach((prop, i) => {
-                const vals = ['absolute','0','0','100%','100%','flex','center','center','translate(0,0)'];
-                btn.style[prop] = vals[i];
+            .forEach((p, i) => {
+                const v = ['absolute','0','0','100%','100%','flex','center','center','translate(0,0)'];
+                btn.style[p] = v[i];
             });
 
-        this.container.append(btn);
+        this.container.appendChild(btn);
     }
 }
+
 document.addEventListener('DOMContentLoaded', () => new Gestures());
