@@ -13,7 +13,7 @@ html, body {
     height: 100vh;
     overflow: hidden;
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, lab(15.99% 35.72 23.55), oklch(91.366% 0.00542 16.202), lab(15.99% 35.72 23.55));
+    background: linear-gradient(135deg, lch(60.42% 1.17 19.15), oklch(92.727% 0.00322 15.415), lch(53.84% 1.2 19.2));
     background-size: 200% 200%;
     animation: gradient-move 20s ease infinite;
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -33,7 +33,7 @@ html, body {
     width: 100%;
     height: 100%;
     background: #007bff;
-    color: #f3d964;
+    color: #cebc6f;
     border: none;
     font-size: 2.5rem;
     text-shadow: 0 1px 3px rgba(0,0,0,0.6);
@@ -51,8 +51,9 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, lch(54.65% 38.76 24.28), oklch(91.366% 0.00542 16.202), lch(31.62% 19.93 22.94));
+    background: linear-gradient(135deg, lch(87.68% 6.21 19.76), oklch(100% 0.00011 271.152), lch(76.15% 2.99 19.47));
     background-size: 200% 200%;
+    background: no-repeat;
     animation: gradient-move 14s ease infinite;
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
