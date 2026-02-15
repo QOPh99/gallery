@@ -1,95 +1,43 @@
-// grid.js - Manages grid positions, indices, storage, and arrow logic
-class GridManager {
-    constructor() {
-        this.cols = 4;
-        this.currentIndex = this.loadCurrentIndex() || 1;
-        this.arrowsTimeout = null;
-    }
-
-    getRow(index) {
-        return Math.floor((index - 1) / this.cols);
-    }
-
-    getCol(index) {
-        return (index - 1) % this.cols;
-    }
-
-    getNextIndex(direction) {
-        const row = this.getRow(this.currentIndex);
-        const col = this.getCol(this.currentIndex);
-        let newIndex = this.currentIndex;
-
-        switch (direction) {
-            case 'left':
-                if (col > 0) newIndex--;
-                else return null;
-                break;
-            case 'right':
-                newIndex++;           // always possible → infinite right
-                break;
-            case 'up':
-                newIndex += this.cols; // always possible → infinite up
-                break;
-            case 'down':
-                if (row > 0) newIndex -= this.cols;
-                else return null;
-                break;
-            default:
-                return null;
+// grid.js - Minimal grid logic
+const grid = {
+    cols: 4,
+    current: 1,
+    getRow: idx => Math.floor((idx - 1) / grid.cols),
+    getCol: idx => (idx - 1) % grid.cols,
+    next(dir) {
+        let idx = grid.current;
+        const row = this.getRow(idx), col = this.getCol(idx);
+        switch (dir) {
+            case 'left': return col > 0 ? --idx : null;
+            case 'right': return col < 3 ? ++idx : null;
+            case 'up': return idx + this.cols;
+            case 'down': return idx > this.cols ? idx - this.cols : null;
         }
-
-        return newIndex > 0 ? newIndex : null;
-    }
-
-    moveTo(index) {
-        if (index && index !== this.currentIndex) {
-            this.currentIndex = index;
-            this.saveCurrentIndex();
-        }
-    }
-
-    createButton(index) {
+        return null;
+    },
+    move(idx) { if (idx && idx !== grid.current) grid.current = idx; },
+    create(idx) {
         const btn = document.createElement('div');
-        btn.className = `grid-btn btn-${index}`;
-        btn.textContent = index;
-        btn.onclick = () => console.log(`Clicked button ${index}`);
+        btn.className = `grid-btn btn-${idx}`;
+        btn.textContent = idx;
+        btn.onclick = () => console.log(`Clicked ${idx}`);
         return btn;
-    }
-
-    showArrows(possibleDirections) {
-        const arrows = document.getElementById('arrows');
-        arrows.classList.remove('show');
-        clearTimeout(this.arrowsTimeout);
-
-        document.querySelectorAll('.arrow').forEach(a => a.style.display = 'none');
-
-        possibleDirections.forEach(dir => {
-            const el = document.querySelector(`.arrow.${dir}`);
-            if (el) el.style.display = 'flex';
-        });
-
-        arrows.classList.add('show');
-        this.arrowsTimeout = setTimeout(() => arrows.classList.remove('show'), 1000);
-    }
-
-    getPossibleDirections() {
-        const row = this.getRow(this.currentIndex);
-        const col = this.getCol(this.currentIndex);
-        const dirs = ['right', 'up']; // always possible
-
+    },
+    possible() {
+        const row = this.getRow(grid.current), col = this.getCol(grid.current);
+        const dirs = [];
         if (col > 0) dirs.push('left');
-        if (row > 0) dirs.push('down');
-
+        if (col < 3) dirs.push('right');
+        dirs.push('up');
+        if (grid.current > this.cols) dirs.push('down');
         return dirs;
+    },
+    showArrows(dirs) {
+        const arrows = document.getElementById('arrows'), els = document.querySelectorAll('.arrow');
+        els.forEach(el => el.style.display = 'none');
+        dirs.forEach(dir => document.querySelector(`.arrow.${dir}`)?.style.setProperty('display', 'flex'));
+        arrows.classList.toggle('show', dirs.length > 0);
+        clearTimeout(grid.timeout);
+        if (dirs.length) grid.timeout = setTimeout(() => arrows.classList.remove('show'), 1000);
     }
-
-    loadCurrentIndex() {
-        return parseInt(localStorage.getItem('currentButtonIndex'), 10) || 1;
-    }
-
-    saveCurrentIndex() {
-        localStorage.setItem('currentButtonIndex', this.currentIndex);
-    }
-}
-
-const grid = new GridManager();
+};

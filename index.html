@@ -3,22 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infinite Button Grid</title>
+    <title>Button Grid</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="header">
+    <header id="header">
         <button id="out-btn">out</button>
-    </div>
-    <div id="view">
+    </header>
+    <main id="view">
         <div id="arrows">
             <div class="arrow left">&lt;</div>
             <div class="arrow right">&gt;</div>
-            <div class="arrow up">&#94;</div>
-            <div class="arrow down">&#118;</div>
+            <div class="arrow up">↑</div>
+            <div class="arrow down">↓</div>
         </div>
-        <div id="button-container"></div>
-    </div>
+        <div id="btn-container">
+            <div id="current-btn" class="grid-btn">1</div>
+        </div>
+    </main>
     <script src="grid.js"></script>
     <script src="gestures.js"></script>
 </body>

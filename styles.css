@@ -1,134 +1,32 @@
 /* styles.css */
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    font-family: Arial, sans-serif;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100vh; overflow: hidden; font-family: Arial, sans-serif; }
 
-#header {
-    height: 7vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f0f0f0;
-    border-bottom: 1px solid #ccc;
-}
+#header { height: 10vh; display: flex; justify-content: center; align-items: center; padding-bottom: 5%; }
+#out-btn { width: 80%; height: 100%; background: #007bff; color: white; border: none; font-size: 18px; border-radius: 5px; cursor: pointer; }
 
-#out-btn {
-    width: 85%;
-    height: 100%;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    border-radius: 5px;
-}
+#view { height: 90vh; position: relative; display: flex; align-items: center; justify-content: center; background: #fff; }
+#btn-container { position: relative; width: 30%; height: 50%; display: flex; align-items: center; justify-content: center; }
 
-#out-btn:hover {
-    background-color: #0056b3;
-}
+.grid-btn { position: absolute; inset: 0; width: 100%; height: 100%; background: #28a745; color: white; border: none; font-size: 24px; font-weight: bold; border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.3s ease-out; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+.grid-btn:active { transform: scale(0.95); }
 
-#view {
-    height: 93vh;
-    position: relative;
-    overflow: hidden;
-    background-color: #fff;
-}
+#arrows { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.3s; z-index: 1; }
+#arrows.show { opacity: 1; }
+.arrow { position: absolute; font-size: 20px; color: #666; background: rgba(255,255,255,0.9); border-radius: 50%; width: 40px; height: 40px; display: none; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.arrow.left { left: 10px; top: 50%; transform: translateY(-50%); }
+.arrow.right { right: 10px; top: 50%; transform: translateY(-50%); }
+.arrow.up { left: 50%; top: 10px; transform: translateX(-50%); }
+.arrow.down { left: 50%; bottom: 10px; transform: translateX(-50%); }
 
-#button-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.grid-btn {
-    width: 80%;
-    height: 20%;
-    min-height: 60px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s ease-in-out;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-.grid-btn:active {
-    transform: scale(0.95);
-}
-
-#arrows {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 10;
-}
-
-#arrows.show {
-    opacity: 1;
-}
-
-.arrow {
-    position: absolute;
-    font-size: 24px;
-    font-weight: bold;
-    color: #666;
-    background: rgba(255,255,255,0.8);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.arrow.left {
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.arrow.right {
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.arrow.up {
-    left: 50%;
-    top: 10px;
-    transform: translateX(-50%);
-}
-
-.arrow.down {
-    left: 50%;
-    bottom: 10px;
-    transform: translateX(-50%);
-}
-
-/* Example individual button styles - developers can add more like .btn-13 { ... } */
-.btn-1 { background-color: #dc3545; }
-.btn-2 { background-color: #ffc107; color: #000; }
-.btn-3 { background-color: #17a2b8; }
-/* Add more as needed for infinite buttons */
+/* Individual button classes for devs */
+.btn-1 { background: #dc3545; }
+.btn-2 { background: #ffc107; color: #000; }
+.btn-3 { background: #17a2b8; }
+.btn-4 { background: #6f42c1; }
+.btn-5 { background: #fd7e14; }
+.btn-6 { background: #20c997; }
+.btn-7 { background: #e83e8c; }
+.btn-8 { background: #6c757d; }
+.btn-12 { background: #343a40; color: #fff; }
+/* Add more as needed */
