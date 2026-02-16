@@ -90,9 +90,10 @@ html, body {
     width: 100%;
     height: 100%;
     max-width: 480px;
-    background-position: center;
+    background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
+    
     color: white;
     border: 2px solid transparent;
     border-radius: 10px;
@@ -177,17 +178,85 @@ html, body {
 .btn-34 { background-image: url(a34.jpg); }
 .btn-35 { background-image: url(a35.jpg); }
 .btn-36 { background-image: url(a36.jpg); }
-.btn-37 { background-image: url(a37.jpg); }
-.btn-38 { background-image: url(a38.jpg); }
-.btn-39 { background-image: url(a39.jpg); }
-.btn-40 { background-image: url(game.jpg); }
-.btn-41 { background-image: url(game.jpg); }
-.btn-42 { background-image: url(game.jpg); }
-.btn-43 { background-image: url(game.jpg); }
-.btn-44 { background-image: url(game.jpg); }
-.btn-45 { background-image: url(game.jpg); }
-.btn-46 { background-image: url(game.jpg); }
-.btn-47 { background-image: url(game.jpg); }
-.btn-48 { background-image: url(game.jpg); }
-.btn-49 { background-image: url(game.jpg); }
-.btn-50 { background-image: url(game.jpg); }
+.btn-37  { background-image: url(a37.jpg); }
+.btn-38  { background-image: url(a38.jpg); }
+.btn-39  { background-image: url(a39.jpg); }
+.btn-40  { background-image: url(a40.jpg); }
+.btn-41  { background-image: url(a41.jpg); }
+.btn-42  { background-image: url(a42.jpg); }
+.btn-43  { background-image: url(a43.jpg); }
+.btn-44  { background-image: url(a44.jpg); }
+.btn-45  { background-image: url(a45.jpg); }
+.btn-46  { background-image: url(a46.jpg); }
+.btn-47  { background-image: url(a47.jpg); }
+.btn-48  { background-image: url(a48.jpg); }
+.btn-49  { background-image: url(a49.jpg); }
+.btn-50  { background-image: url(a50.jpg); }
+.btn-51  { background-image: url(a51.jpg); }
+.btn-52  { background-image: url(a52.jpg); }
+.btn-53  { background-image: url(a53.jpg); }
+.btn-54  { background-image: url(a54.jpg); }
+.btn-55  { background-image: url(a55.jpg); }
+.btn-56  { background-image: url(a56.jpg); }
+.btn-57  { background-image: url(a57.jpg); }
+.btn-58  { background-image: url(a58.jpg); }
+.btn-59  { background-image: url(a59.jpg); }
+.btn-60  { background-image: url(a60.jpg); }
+.btn-61  { background-image: url(a61.jpg); }
+.btn-62  { background-image: url(a62.jpg); }
+.btn-63  { background-image: url(a63.jpg); }
+.btn-64  { background-image: url(a64.jpg); }
+.btn-65  { background-image: url(a65.jpg); }
+.btn-66  { background-image: url(a66.jpg); }
+.btn-67  { background-image: url(a67.jpg); }
+.btn-68  { background-image: url(a68.jpg); }
+.btn-69  { background-image: url(a69.jpg); }
+.btn-70  { background-image: url(a70.jpg); }
+.btn-71  { background-image: url(a71.jpg); }
+.btn-72  { background-image: url(a72.jpg); }
+.btn-73  { background-image: url(a73.jpg); }
+.btn-74  { background-image: url(a74.jpg); }
+.btn-75  { background-image: url(a75.jpg); }
+.btn-76  { background-image: url(a76.jpg); }
+.btn-77  { background-image: url(a77.jpg); }
+.btn-78  { background-image: url(a78.jpg); }
+.btn-79  { background-image: url(a79.jpg); }
+.btn-80  { background-image: url(a80.jpg); }
+.btn-81  { background-image: url(a81.jpg); }
+.btn-82  { background-image: url(a82.jpg); }
+.btn-83  { background-image: url(a83.jpg); }
+.btn-84  { background-image: url(a84.jpg); }
+.btn-85  { background-image: url(a85.jpg); }
+.btn-86  { background-image: url(a86.jpg); }
+.btn-87  { background-image: url(a87.jpg); }
+.btn-88  { background-image: url(a88.jpg); }
+.btn-89  { background-image: url(a89.jpg); }
+.btn-90  { background-image: url(a90.jpg); }
+.btn-91  { background-image: url(a91.jpg); }
+.btn-92  { background-image: url(a92.jpg); }
+.btn-93  { background-image: url(a93.jpg); }
+.btn-94  { background-image: url(a94.jpg); }
+.btn-95  { background-image: url(a95.jpg); }
+.btn-96  { background-image: url(a96.jpg); }
+.btn-97  { background-image: url(a97.jpg); }
+.btn-98  { background-image: url(a98.jpg); }
+.btn-99  { background-image: url(a99.jpg); }
+.btn-100 { background-image: url(a100.jpg); }
+.btn-101 { background-image: url(a101.jpg); }
+.btn-102 { background-image: url(a102.jpg); }
+.btn-103 { background-image: url(a103.jpg); }
+.btn-104 { background-image: url(a104.jpg); }
+.btn-105 { background-image: url(a105.jpg); }
+.btn-106 { background-image: url(a106.jpg); }
+.btn-107 { background-image: url(a107.jpg); }
+.btn-108 { background-image: url(a108.jpg); }
+.btn-109 { background-image: url(a109.jpg); }
+.btn-110 { background-image: url(a110.jpg); }
+.btn-111 { background-image: url(a111.jpg); }
+.btn-112 { background-image: url(game.jpg); }
+.btn-113 { background-image: url(game.jpg); }
+.btn-114 { background-image: url(game.jpg); }
+.btn-115 { background-image: url(game.jpg); }
+.btn-116 { background-image: url(game.jpg); }
+.btn-117 { background-image: url(game.jpg); }
+.btn-118 { background-image: url(game.jpg); }
