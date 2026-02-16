@@ -98,7 +98,7 @@ html, body {
     border: 2px solid transparent;
     border-radius: 10px;
     cursor: pointer;
-    transition: transform 0.3s ease-out;
+    transition: transform 0.25s ease, filter 0.25s ease, box-shadow 0.25s ease;
     box-shadow: 0 1px 4px rgba(0,0,0,0.15);
     transform: translateZ(0);
     backface-visibility: hidden;
@@ -107,6 +107,35 @@ html, body {
     image-rendering: -webkit-optimize-contrast;
     display: block;                /* ← changed from flex */
     overflow: hidden;              /* prevents number overflow */
+}
+
+.grid-btn:hover {
+    transform: scale(1.035);
+    filter: brightness(1.1);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+}
+
+.grid-btn:active {
+    transform: scale(0.96);
+    filter: brightness(0.92);
+}
+
+/* External link icon in bottom-right corner */
+.grid-btn .link-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 12px;
+    font-size: 22px;
+    color: white;
+    opacity: 0.65;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+    pointer-events: none;
+    z-index: 2;
+    transition: opacity 0.2s ease;
+}
+
+.grid-btn:hover .link-icon {
+    opacity: 0.9;
 }
 
 /* New: style for the number in top-left */
@@ -193,11 +222,10 @@ html, body {
 
 /* Mobile adjustments */
 @media (max-width: 480px) {
-    .grid-position-indicator {
-        top: 8px;
-        right: 8px;
-        padding: 7px 10px;
-        font-size: 12px;
+    .grid-btn .link-icon {
+        font-size: 18px;
+        bottom: 8px;
+        right: 10px;
     }
     .mini-grid {
         width: 94px;
