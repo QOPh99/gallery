@@ -7,6 +7,91 @@ class Gestures {
     this.sy = 0;
     this.container = document.getElementById('btn-container');
     this.init();
+    
+}
+
+updateMiniGrid() {
+        const cellsContainer = document.getElementById('mini-cells');
+        const rowNumEl = document.getElementById('row-num');
+        const colNumEl = document.getElementById('col-num');
+
+        if (!cellsContainer || !rowNumEl || !colNumEl) {
+            console.warn('Mini-grid elements not found in DOM');
+            return;
+        }
+
+        const current = grid.current;
+        const cols = grid.cols;                // 4
+        const totalButtons = 117;              // ← adjust if different
+
+        const currentRow = grid.getRow(current);  // 0-based
+        const currentCol = grid.getCol(current);  // 0-based
+
+        // Decide starting row for the 3-row sliding window
+        let startRow = currentRow - 1;
+        if (currentRow <= 0)          startRow = 0;
+        else if (currentRow >= Math.floor((totalButtons - 1) / cols) - 1) {
+            startRow = Math.max(0, Math.floor((totalButtons - 1) / cols) - 2);
+        }
+
+        // Rebuild the 3 rows × 4 cols = 12 cells
+        cellsContainer.innerHTML = '';
+
+        for (let r = 0; r < 3; r++) {
+            const rowIdx = startRow + r;
+            for (let c = 0; c < cols; c++) {
+                const idx = rowIdx * cols + c + 1;
+
+                const cell = document.createElement('div');
+                cell.className = 'mini-cell';
+
+                if (idx <= totalButtons) {
+                    cell.textContent = idx;
+                    if (idx === current) {
+                        cell.classList.add('current');
+                    }
+                } else {
+                    cell.style.visibility = 'hidden';
+                }
+
+                cellsContainer.appendChild(cell);
+            }
+        }
+
+        rowNumEl.textContent = currentRow + 1;
+        colNumEl.textContent = currentCol + 1;
+    
+
+    // Clear and rebuild cells (we rebuild because window moves)
+    container.innerHTML = '';
+
+    for (let r = 0; r < 3; r++) {
+        const rowIdx = startRow + r;
+        for (let c = 0; c < cols; c++) {
+            const idx = rowIdx * cols + c + 1;
+
+            const cell = document.createElement('div');
+            cell.className = 'mini-cell';
+
+            // Only show number if button actually exists
+            if (idx <= totalButtons) {
+                cell.textContent = idx;
+                if (idx === current) {
+                    cell.classList.add('current');
+                }
+            } else {
+                cell.style.visibility = 'hidden'; // or opacity:0
+            }
+
+            container.appendChild(cell);
+        }
+    }
+
+    // Update label
+    const col = grid.getCol(current) + 1;
+    const row = currentRow + 1;
+    document.getElementById('row-num').textContent = row;
+    document.getElementById('col-num').textContent = col;
 }
 
 init() {
@@ -128,6 +213,7 @@ init() {
             this.container.appendChild(inBtn);
             grid.move(nextIdx);
             this.anim = false;
+            this.updateMiniGrid();
         }, 340);
     }
 
@@ -153,6 +239,8 @@ init() {
         this.container.innerHTML = '';
         while (this.container.firstChild) {
             this.container.removeChild(this.container.firstChild);
+            this.container.appendChild(btn);
+            this.updateMiniGrid();
         }
 
         const btn = grid.create(grid.current);
