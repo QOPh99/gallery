@@ -20,24 +20,29 @@ html, body {
 a {
     text-decoration: none;
     font-weight: 600;
-    
     z-index: 17;
 }
 
 #header {
+    
+    top: 10px;
     height: 6vh;
     display: absolute;
     justify-content: center;
     align-items: center;
+    width: 30%;
     
 }
 
 
 
 #out-btn {
-    display: flex-box;
+    display: flexbox;
     width: 100%;
     height: 100%;
+   
+    margin: 7px 6px 10px 10px;
+  
     background: #007bff;
     color: #cebc6f;
     border: none;
@@ -49,6 +54,17 @@ a {
     background-size: 200% 200%;
     animation: gradient-move 7s ease infinite;
     transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.roow {
+    position: absolute;
+    top: 20px;
+    left: 35%;
+    font-size: 17px;
+    color: #462409;
+    text-shadow: 0 1px 3px rgba(231, 224, 224, 0.7);
+    z-index: 16;
+    transition: opacity 0.2s ease;
 }
 
 #view {
@@ -67,7 +83,7 @@ a {
 
 #btn-container {
     position: absolute;
-    top: 50%;
+    top: 42%;
     left: 50%;
     transform: translate(-50%, -50%) translateZ(0);  /* perfect centering */
     width:  min(85vw, 480px);
@@ -87,7 +103,7 @@ a {
 
 #btn-container:active {
     transform: translate(-50%, -50%) translateZ(0) translateY(-1px) scale(0.98);
-    box-shadow: 0 4px 16px rgba(168, 85, 247, 0.45);
+    box-shadow: 0 4px 16px rgba(16, 44, 202, 0.45);
 }
 
 .grid-btn {
@@ -172,8 +188,8 @@ a {
 
 .grid-position-indicator {
     position: relative;
-    top: 1px;
-    right: 12px;
+    top: 10px;
+  
     z-index: 15;
     background: rgba(0, 0, 0, 0.68);
     color: #e4dddd;
@@ -198,8 +214,8 @@ a {
 
 .mini-grid {
     position: absolute;
-  top: 1px;                  /* distance from top of #view — adjust as needed */
-  
+  top: 6px;                  /* distance from top of #view — adjust as needed */
+  left: 65%;
   transform: scale(0.8);           /* 80% grootte – alles schaaalt mee (tekst, padding, schaduw, etc.) */
   transform-origin: top center;
   z-index: 12;                /* below indicator but above buttons if needed */
@@ -250,11 +266,7 @@ a {
     opacity: 0.95;
 }
 
-.grid-position-indicator,
-.mini-grid {
-      /* voor mini-grid: schaal vanaf boven-midden */
-  /* of voor indicator: transform-origin: top right; */
-}
+
 
 /* Mobile adjustments */
 @media (max-width: 480px) {
