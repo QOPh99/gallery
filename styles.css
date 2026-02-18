@@ -11,26 +11,26 @@ html, body {
     overflow: hidden;
     text-align: center;
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, lch(60.42% 1.17 19.15), rgb(218, 239, 240), oklab(63.88% -0.03022 -0.01668));
+    background: linear-gradient(135deg, lch(60.42% 1.17 19.15), rgb(45, 101, 104), oklab(67.55% -0.0102 -0.00622));
     background-size: 200% 200%;
-    animation: gradient-move 20s ease infinite;
+    animation: gradient-move 5s ease infinite;
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 a {
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
     z-index: 17;
 }
 
 #header {
     
-    top: 10px;
-    height: 6vh;
+   
+    height: 6.5vh;
     display: absolute;
-    justify-content: center;
+   
     align-items: center;
-    width: 30%;
+    width: 25%;
     
 }
 
@@ -41,7 +41,7 @@ a {
     width: 100%;
     height: 100%;
    
-    margin: 7px 6px 10px 10px;
+    margin: 8px 0 0 30px;
   
     background: #007bff;
     color: #cebc6f;
@@ -59,10 +59,10 @@ a {
 .roow {
     position: absolute;
     top: 20px;
-    left: 35%;
+    left: 38%;
     font-size: 17px;
-    color: #462409;
-    text-shadow: 0 1px 3px rgba(231, 224, 224, 0.7);
+    color: #ebdcd1;
+    text-shadow: 0 1px 3px rgba(66, 49, 13, 0.7);
     z-index: 16;
     transition: opacity 0.2s ease;
 }
@@ -214,8 +214,8 @@ a {
 
 .mini-grid {
     position: absolute;
-  top: 6px;                  /* distance from top of #view — adjust as needed */
-  left: 65%;
+  top: 9px;                  /* distance from top of #view — adjust as needed */
+  left: 68%;
   transform: scale(0.8);           /* 80% grootte – alles schaaalt mee (tekst, padding, schaduw, etc.) */
   transform-origin: top center;
   z-index: 12;                /* below indicator but above buttons if needed */
@@ -230,7 +230,7 @@ a {
     background: rgba(255, 255, 255, 0.08);   /* hele lichte witte waas */
     /* of rgba(0,0,0,0.25) voor donker */
     
-    border: 1px solid rgba(255,255,255,0.12); /* subtiel randje → optioneel */
+    
     box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     background-size: 200% 200%;
     animation: gradient-move 20s ease infinite;
@@ -245,7 +245,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: bold;
     color: #241d1d;
     transition: all 0.22s ease;
@@ -262,7 +262,7 @@ a {
 
 .position-label {
     text-align: center;
-    font-size: 12px;
+    font-size: 13px;
     opacity: 0.95;
 }
 
