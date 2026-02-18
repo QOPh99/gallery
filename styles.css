@@ -9,6 +9,7 @@
 html, body {
     height: 100vh;
     overflow: hidden;
+    text-align: center;
     font-family: Arial, sans-serif;
     background: linear-gradient(135deg, lch(60.42% 1.17 19.15), rgb(218, 239, 240), oklab(63.88% -0.03022 -0.01668));
     background-size: 200% 200%;
@@ -198,8 +199,9 @@ a {
 .mini-grid {
     position: absolute;
   top: 1px;                  /* distance from top of #view — adjust as needed */
-  left: 50%;
-  transform: translateX(-50%); /* keep it horizontally centered */
+  
+  transform: scale(0.8);           /* 80% grootte – alles schaaalt mee (tekst, padding, schaduw, etc.) */
+  transform-origin: top center;
   z-index: 12;                /* below indicator but above buttons if needed */
 
   /* remove or override these – they push it down when it's not absolute */
@@ -207,7 +209,7 @@ a {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 5px;
-    width: 110px;           /* a bit wider for numbers */
+              /* a bit wider for numbers */
     margin-bottom: 8px;
     background: rgba(255, 255, 255, 0.08);   /* hele lichte witte waas */
     /* of rgba(0,0,0,0.25) voor donker */
@@ -246,6 +248,12 @@ a {
     text-align: center;
     font-size: 12px;
     opacity: 0.95;
+}
+
+.grid-position-indicator,
+.mini-grid {
+      /* voor mini-grid: schaal vanaf boven-midden */
+  /* of voor indicator: transform-origin: top right; */
 }
 
 /* Mobile adjustments */
