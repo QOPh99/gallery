@@ -83,7 +83,7 @@ a {
 
 #btn-container {
     position: absolute;
-    top: 42%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%) translateZ(0);  /* perfect centering */
     width:  min(85vw, 480px);
