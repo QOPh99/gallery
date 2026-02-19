@@ -173,14 +173,6 @@ a {
     pointer-events: none;
 }
 
-/* Optional: make text smaller on smaller screens */
-@media (max-width: 500px) {
-    .btn-number {
-        font-size: 22px;
-        top: 6px;
-        left: 10px;
-    }
-}
 
 .grid-btn:active {
     transform: scale(0.95);
