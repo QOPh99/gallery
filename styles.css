@@ -36,7 +36,7 @@ a {
 
 
 
-#out-btn {
+.out-btn {
     display: flexbox;
     width: 100%;
     height: 100%;
