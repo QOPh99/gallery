@@ -260,24 +260,7 @@ a {
 
 
 
-/* Mobile adjustments */
-@media (max-width: 480px) {
-    .grid-btn .link-icon {
-        font-size: 18px;
-        bottom: 8px;
-        right: 10px;
-    }
-    .mini-grid {
-        width: 94px;
-        gap: 4px;
-    }
-    .mini-cell {
-        font-size: 10px;
-    }
-    .mini-cell.current {
-        font-size: 11.5px;
-    }
-}
+
 
 @keyframes gradient-move {
   0%   { background-position: 0% 0%;    }
