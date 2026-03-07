@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Single Photo Infinite Pan – Seamless Loop</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #111;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+    }
+
+    .window {
+      width: 384px;
+      height: 854px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid #444;           /* optional – remove if you don't want visible frame */
+      background: #000;
+    }
+
+    .track {
+      display: flex;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      animation: pan-left 50s linear infinite;   /* adjust time: 15s=faster, 30s=slower */
+      will-change: transform;
+    }
+
+    .photo {
+      height: 100%;
+      width: auto;
+      min-width: 384px;                   /* prevents tiny images from breaking */
+      flex-shrink: 0;
+      display: block;
+    }
+
+    @keyframes pan-left {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-100%);
+      }
+    }
+
+    /* Optional: pause on hover */
+    .window:hover .track {
+      /* animation-play-state: paused; */
+    }
+  </style>
+</head>
+<body>
+
+<div class="window">
+  <div class="track">
+    <a href="https://qoph99.github.io/gallery/a1.jpg" target="_blank"><img class="photo" src="a1.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a2.jpg" target="_blank"><img class="photo" src="a2.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a3.jpg" target="_blank"><img class="photo" src="a3.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a4.jpg" target="_blank"><img class="photo" src="a4.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a5.jpg" target="_blank"><img class="photo" src="a5.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a6.jpg" target="_blank"><img class="photo" src="a6.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a7.jpg" target="_blank"><img class="photo" src="a7.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a8.jpg" target="_blank"><img class="photo" src="a8.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a9.jpg" target="_blank"><img class="photo" src="a9.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a10.jpg" target="_blank"><img class="photo" src="a10.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a11.jpg" target="_blank"><img class="photo" src="a11.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a12.jpg" target="_blank"><img class="photo" src="a12.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a13.jpg" target="_blank"><img class="photo" src="a13.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a14.jpg" target="_blank"><img class="photo" src="a14.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a15.jpg" target="_blank"><img class="photo" src="a15.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a16.jpg" target="_blank"><img class="photo" src="a16.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a17.jpg" target="_blank"><img class="photo" src="a17.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a18.jpg" target="_blank"><img class="photo" src="a18.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a19.jpg" target="_blank"><img class="photo" src="a19.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a20.jpg" target="_blank"><img class="photo" src="a20.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a21.jpg" target="_blank"><img class="photo" src="a21.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a22.jpg" target="_blank"><img class="photo" src="a22.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a23.jpg" target="_blank"><img class="photo" src="a23.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a24.jpg" target="_blank"><img class="photo" src="a24.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a25.jpg" target="_blank"><img class="photo" src="a25.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a26.jpg" target="_blank"><img class="photo" src="a26.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a27.jpg" target="_blank"><img class="photo" src="a27.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a28.jpg" target="_blank"><img class="photo" src="a28.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a29.jpg" target="_blank"><img class="photo" src="a29.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a30.jpg" target="_blank"><img class="photo" src="a30.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a31.jpg" target="_blank"><img class="photo" src="a31.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a32.jpg" target="_blank"><img class="photo" src="a32.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a33.jpg" target="_blank"><img class="photo" src="a33.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a34.jpg" target="_blank"><img class="photo" src="a34.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a35.jpg" target="_blank"><img class="photo" src="a35.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a36.jpg" target="_blank"><img class="photo" src="a36.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a37.jpg" target="_blank"><img class="photo" src="a37.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a38.jpg" target="_blank"><img class="photo" src="a38.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a39.jpg" target="_blank"><img class="photo" src="a39.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a40.jpg" target="_blank"><img class="photo" src="a40.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a41.jpg" target="_blank"><img class="photo" src="a41.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a42.jpg" target="_blank"><img class="photo" src="a42.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a43.jpg" target="_blank"><img class="photo" src="a43.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a44.jpg" target="_blank"><img class="photo" src="a44.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a45.jpg" target="_blank"><img class="photo" src="a45.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a46.jpg" target="_blank"><img class="photo" src="a46.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a47.jpg" target="_blank"><img class="photo" src="a47.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a48.jpg" target="_blank"><img class="photo" src="a48.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a49.jpg" target="_blank"><img class="photo" src="a49.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a50.jpg" target="_blank"><img class="photo" src="a50.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a51.jpg" target="_blank"><img class="photo" src="a51.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a52.jpg" target="_blank"><img class="photo" src="a52.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a53.jpg" target="_blank"><img class="photo" src="a53.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a54.jpg" target="_blank"><img class="photo" src="a54.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a55.jpg" target="_blank"><img class="photo" src="a55.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a56.jpg" target="_blank"><img class="photo" src="a56.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a57.jpg" target="_blank"><img class="photo" src="a57.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a58.jpg" target="_blank"><img class="photo" src="a58.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a59.jpg" target="_blank"><img class="photo" src="a59.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a60.jpg" target="_blank"><img class="photo" src="a60.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a61.jpg" target="_blank"><img class="photo" src="a61.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a62.jpg" target="_blank"><img class="photo" src="a62.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a63.jpg" target="_blank"><img class="photo" src="a63.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a64.jpg" target="_blank"><img class="photo" src="a64.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a65.jpg" target="_blank"><img class="photo" src="a65.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a66.jpg" target="_blank"><img class="photo" src="a66.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a67.jpg" target="_blank"><img class="photo" src="a67.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a68.jpg" target="_blank"><img class="photo" src="a68.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a69.jpg" target="_blank"><img class="photo" src="a69.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a70.jpg" target="_blank"><img class="photo" src="a70.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a71.jpg" target="_blank"><img class="photo" src="a71.jpg" alt="Photo"></a>
+    <a href="https://qoph99.github.io/gallery/a72.jpg" target="_blank"><img class="photo" src="a72.jpg" alt="Photo"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</div>
+
+</body>
+</html>
