@@ -52,34 +52,7 @@
       display: block;
     }
 
-    .pause-btn {
-    position: absolute;
-    top: 12px;
-    right: 24px;
-    width: 50px;
-    height: 50px;
-    background: rgba(0,0,0,0.65);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 100;
-    opacity: 0.5;
-    text-shadow: 0 1px 3px #f7ad0e99;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    transition: all 0.28s ease;
-    background: linear-gradient(90deg, hsl(32, 83%, 56%), oklab(65.60000000000001% -0.04198 -0.10728), lch(47.79% 86.66 38.75));
-    background-size: 200% 200%;
-    animation: gradient-move 17s ease infinite;
-}
-
-.pause-btn.paused { 
-  background: rgba(0,160,0,0.8); 
-  background: linear-gradient(90deg, hsl(4, 83%, 56%), rgb(84, 212, 95), oklab(52.157% 0.04358 -0.24411));
-    background-size: 200% 200%;
-    animation: gradient-move 5s ease infinite;
-}
+    
 
 @media (max-width: 500px) {
     .pause-btn {
@@ -103,43 +76,81 @@
       /* animation-play-state: paused; */
     }
 
-    .exit-btn {
+    
+.pause-btn {
     position: absolute;
     top: 12px;
-    left: 27px;
     width: 50px;
     height: 50px;
-    background: rgba(0, 0, 0, 0.65);
-    color: #fff;
     border: none;
     border-radius: 50%;
-    font-size: 30px;
-    font-weight: bold;
-    line-height: 36px;
-    text-align: center;
+    font-size: 24px;           /* adjusted for better balance */
     cursor: pointer;
     z-index: 100;
-    transition: all 0.2s;
-    user-select: none;
-    opacity: 0.5;
+    opacity: 0.7;
     text-shadow: 0 1px 3px #f7ad0e99;
     box-shadow: 0 4px 12px rgba(0,0,0,0.25);
     transition: all 0.28s ease;
-    background: linear-gradient(90deg, hsl(0, 84%, 48%), oklab(65.60000000000001% -0.04198 -0.10728), lab(67.7% 17.12 68.85));
+    background: linear-gradient(90deg, hsl(32, 83%, 56%), oklab(65.6% -0.042 -0.107), lch(47.79% 86.66 38.75));
     background-size: 200% 200%;
     animation: gradient-move 12s ease infinite;
+    color: white;
+    line-height: 50px;         /* better vertical centering */
+    text-align: center;
 }
 
+/* Exit – always top-right */
+.exit-btn {
+    right: 24px;
+    position: absolute;
+    top: 12px;
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;           /* adjusted for better balance */
+    cursor: pointer;
+    z-index: 100;
+    opacity: 0.7;
+    text-shadow: 0 1px 3px #f7ad0e99;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    transition: all 0.28s ease;
+    background: linear-gradient(90deg, hsl(0, 84%, 48%), oklab(65.6% -0.042 -0.107), lab(67.7% 17.12 68.85));
+    background-size: 200% 200%;
+    animation: gradient-move 17s ease infinite;
+    color: white;
+    line-height: 50px;         /* better vertical centering */
+    text-align: center;
+    
+}
+
+/* Pause – always top-left */
+.pause-btn {
+    left: 24px;
+    
+}
+
+.pause-btn.paused {
+    background: linear-gradient(90deg, hsl(4, 83%, 56%), rgb(84, 212, 95), oklab(52.157% 0.04358 -0.24411));
+    
+    background-size: 200% 200%;
+    animation: gradient-move 5s ease infinite;
+}
+
+/* Mobile adjustments – increase spacing & size */
 @media (max-width: 500px) {
-      .exit-btn {
+    .exit-btn,
+    .pause-btn {
         top: 16px;
-        right: 16px;
         width: 56px;
         height: 56px;
         font-size: 32px;
         line-height: 56px;
-      }
     }
+    
+    .exit-btn { right: 16px; }
+    .pause-btn { left: 16px; }
+}
 
 
 /* Animation keyframes */
