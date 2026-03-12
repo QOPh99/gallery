@@ -111,7 +111,7 @@
 
 <div class="window">
     <button class="exit-btn" onclick="window.location.href='https://qoph99.github.io/bahasa.github.io/index.html';">×</button>
-  <div class="track">
+  <div class="track " id="track">
     <a href="https://qoph99.github.io/gallery/a116.jpg" target="_blank"><img class="photo" src="a116.jpg" alt="Photo"></a>
     <a href="https://qoph99.github.io/gallery/a1.jpg" target="_blank"><img class="photo" src="a1.jpg" alt="Photo"></a>
     <a href="https://qoph99.github.io/gallery/a120.jpg" target="_blank"><img class="photo" src="a120.jpg" alt="Photo"></a>
@@ -292,6 +292,26 @@
 
   </div>
 </div>
+
+<script>
+// ────────────────────────────────────────────────
+// Randomize photo order on every page load
+// ────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+    const track = document.getElementById('track');
+    const items = Array.from(track.children);
+    
+    // Fisher-Yates (modern) shuffle
+    for (let i = items.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [items[i], items[j]] = [items[j], items[i]];
+    }
+    
+    // Remove old children and append in new random order
+    track.innerHTML = '';
+    items.forEach(item => track.appendChild(item));
+});
+</script>
 
 </body>
 </html>
